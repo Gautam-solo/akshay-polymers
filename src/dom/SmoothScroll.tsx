@@ -19,6 +19,15 @@ export function scrollToAnchor(hash: string) {
   }
 }
 
+/** Jump to the top instantly (used on route changes). */
+export function scrollToTop() {
+  if (lenisInstance) {
+    lenisInstance.scrollTo(0, { immediate: true })
+  } else {
+    window.scrollTo(0, 0)
+  }
+}
+
 export function SmoothScroll() {
   useEffect(() => {
     if (REDUCED) return

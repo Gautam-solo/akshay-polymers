@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { gsap } from 'gsap'
+import { FAMILIES } from '../lib/palette'
 
 const REDUCED =
   typeof matchMedia !== 'undefined' &&
@@ -36,8 +37,8 @@ vec3 swirl(vec3 p, float t) {
 }
 
 vec3 cloudPos(vec4 seed, float t) {
-  vec3 base = (seed.xyz - 0.5) * vec3(160.0, 85.0, 180.0);
-  base.z -= 30.0;
+  vec3 base = (seed.xyz - 0.5) * vec3(135.0, 72.0, 150.0);
+  base.z -= 24.0;
   // large-wavelength displacement folds the field into wisps with dark voids
   base += swirl(base * 0.045 + seed.w, t * 0.05) * 17.0;
   base += swirl(base * 0.2 + seed.w * 10.0, t * 0.15) * 1.8;
@@ -60,7 +61,7 @@ float t = uTime * uIdle;
 
 // staggered arrival: each pellet fades up and glides in on its own beat
 float arrive = smoothstep(0.0, 1.0, clamp(uReveal * 1.35 - aSeed.w * 0.35, 0.0, 1.0));
-float scl = (0.11 + aSeed.w * 0.1) * arrive;
+float scl = (0.16 + aSeed.w * 0.14) * arrive;
 vec3 transformed = gRot * (position * scl);
 
 vec3 wp = cloudPos(aSeed, t);
@@ -131,9 +132,9 @@ export function GranuleField({ count, onReady }: Props) {
   const material = useMemo(() => {
     const m = new THREE.MeshStandardMaterial({
       color: 0xffffff,
-      roughness: 0.34,
+      roughness: 0.32,
       metalness: 0.04,
-      envMapIntensity: 0.85,
+      envMapIntensity: 1.05,
     })
     m.onBeforeCompile = (shader) => {
       Object.assign(shader.uniforms, uniforms)
@@ -156,10 +157,15 @@ export function GranuleField({ count, onReady }: Props) {
     const color = new THREE.Color()
     for (let i = 0; i < count; i++) {
       mesh.setMatrixAt(i, identity)
-      // natural white pellets: subtle warm/cool variation, occasional grey
-      const tone = 0.86 + Math.random() * 0.14
-      const warm = (Math.random() - 0.5) * 0.03
-      color.setRGB(tone + warm, tone, tone - warm)
+      if (Math.random() < 0.22) {
+        // natural white pellets mixed in, like a masterbatch sample tray
+        const tone = 0.86 + Math.random() * 0.14
+        const warm = (Math.random() - 0.5) * 0.03
+        color.setRGB(tone + warm, tone, tone - warm)
+      } else {
+        color.set(FAMILIES[i % FAMILIES.length])
+        color.offsetHSL(0, 0, (Math.random() - 0.5) * 0.08)
+      }
       mesh.setColorAt(i, color)
     }
     mesh.instanceMatrix.needsUpdate = true

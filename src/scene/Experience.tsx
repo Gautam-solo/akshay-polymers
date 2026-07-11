@@ -86,7 +86,7 @@ export function Experience({ count, dof, active, onReady }: Props) {
           scale={[12, 5, 1]}
         />
       </Environment>
-      <directionalLight position={[8, 12, 10]} intensity={1.9} />
+      <directionalLight position={[8, 12, 10]} intensity={2.3} />
       <directionalLight position={[-10, -4, -6]} intensity={0.4} color="#7d92c9" />
 
       <GranuleField count={count} onReady={onReady} />
