@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { SmoothScroll, scrollToAnchor, scrollToTop } from '../dom/SmoothScroll'
 import { PHONE_MAIN, PRODUCTS } from '../lib/content'
@@ -21,6 +21,7 @@ function Brand({ badgeSize = 40 }: { badgeSize?: number }) {
 
 export function Layout() {
   const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   // land at the top (or the requested anchor) on every route change
   useEffect(() => {
@@ -32,21 +33,62 @@ export function Layout() {
     }
   }, [location.pathname, location.hash])
 
+  // never leave the menu open behind a new page
+  useEffect(() => setMenuOpen(false), [location.pathname, location.hash])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
+
   return (
     <>
       <SmoothScroll />
 
-      <header className="nav">
+      <header className={`nav ${menuOpen ? 'nav-open' : ''}`}>
         <Brand />
         <nav className="nav-links" aria-label="Primary">
           <Link to="/#products">Products</Link>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/contact">Contact</NavLink>
         </nav>
-        <a className="btn btn-small" href={`tel:${PHONE_MAIN}`}>
+        <a className="btn btn-small nav-quote" href={`tel:${PHONE_MAIN}`}>
           Get a quote
         </a>
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span />
+          <span />
+        </button>
       </header>
+
+      <div
+        id="mobile-menu"
+        className={`mobile-menu ${menuOpen ? 'mobile-menu-open' : ''}`}
+        hidden={!menuOpen}
+      >
+        <Link to="/#products">Products</Link>
+        {PRODUCTS.map((p) => (
+          <Link key={p.slug} to={`/${p.slug}`} className="mobile-menu-sub">
+            {p.name}
+          </Link>
+        ))}
+        <Link to="/about">About</Link>
+        <Link to="/contact">Contact</Link>
+        <a className="btn btn-accent" href={`tel:${PHONE_MAIN}`}>
+          Get a quote
+        </a>
+      </div>
 
       <Outlet />
 

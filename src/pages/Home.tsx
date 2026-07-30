@@ -21,7 +21,14 @@ export function Home() {
     () => window.innerWidth >= 900 && matchMedia('(pointer: fine)').matches,
     [],
   )
-  const count = desktop ? 28000 : 9000
+  const count = desktop ? 22400 : 7200
+
+  // The hero copy waits for the scene so the two arrive together, but it must
+  // never depend on it: if WebGL init fails the headline still has to show.
+  useEffect(() => {
+    const t = window.setTimeout(() => setReady(true), 1500)
+    return () => window.clearTimeout(t)
+  }, [])
 
   const productsReveal = useReveal<HTMLDivElement>()
   const aboutReveal = useReveal<HTMLDivElement>()

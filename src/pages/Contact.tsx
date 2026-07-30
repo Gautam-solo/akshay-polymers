@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ADDRESS, EMAILS, HOURS, PHONES } from '../lib/content'
+import { ADDRESS, EMAILS, HOURS, PHONES, mapsUrl } from '../lib/content'
 
 export function Contact() {
   const [firstName, setFirstName] = useState('')
@@ -130,7 +130,15 @@ export function Contact() {
             </div>
             <div className="contact-block">
               <h3>Works</h3>
-              <p>{ADDRESS}</p>
+              <a
+                className="contact-address"
+                href={mapsUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {ADDRESS}
+                <span className="contact-address-cue">Open in Maps</span>
+              </a>
             </div>
           </div>
         </div>

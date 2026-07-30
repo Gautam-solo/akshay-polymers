@@ -13,6 +13,20 @@ export const EMAILS = ['jainjainjain701@gmail.com', 'akshaypolymer014@gmail.com'
 export const ADDRESS =
   'No-81, Tirupati Aakruti Industrial Estate, Opp. Abhishree Estate, Odhav Ring Road, Odhav, Ahmedabad - 382415, Gujarat, India'
 
+/**
+ * Deep link to the works. Apple devices get Apple Maps (which is what opens
+ * natively there); everything else gets Google Maps, which opens the app when
+ * it is installed and the website otherwise.
+ */
+export function mapsUrl(): string {
+  const query = encodeURIComponent(`Akshay Polymers, ${ADDRESS}`)
+  const ua = typeof navigator === 'undefined' ? '' : navigator.userAgent
+  const isApple = /iPad|iPhone|iPod|Macintosh/.test(ua)
+  return isApple
+    ? `https://maps.apple.com/?q=${query}`
+    : `https://www.google.com/maps/search/?api=1&query=${query}`
+}
+
 export const HOURS = [
   { days: 'Monday to Saturday', time: '9:00 am to 7:00 pm' },
   { days: 'Sunday', time: 'Closed' },
