@@ -13,7 +13,13 @@ export function Effects({ dof }: { dof: boolean }) {
   return (
     <EffectComposer multisampling={0}>
       <Bloom mipmapBlur intensity={0.45} luminanceThreshold={0.85} luminanceSmoothing={0.25} />
-      <DepthOfField worldFocusDistance={50} worldFocusRange={16} bokehScale={3.6} />
+      {/* bokeh runs at half resolution: same look, far less fill rate */}
+      <DepthOfField
+        worldFocusDistance={50}
+        worldFocusRange={16}
+        bokehScale={3.2}
+        resolutionScale={0.5}
+      />
       <Vignette offset={0.28} darkness={0.7} />
     </EffectComposer>
   )

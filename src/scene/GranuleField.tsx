@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { gsap } from 'gsap'
+import { MAX_DELTA } from '../lib/frame'
 import { FAMILIES } from '../lib/palette'
 
 const REDUCED =
@@ -190,7 +191,9 @@ export function GranuleField({ count, onReady }: Props) {
     [geometry, material],
   )
 
-  useFrame((state, delta) => {
+  useFrame((state, rawDelta) => {
+    // clamped so a paused/throttled loop resumes smoothly instead of jumping
+    const delta = Math.min(rawDelta, MAX_DELTA)
     uniforms.uTime.value += delta
 
     if (pointerMoved.current) {

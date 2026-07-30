@@ -16,8 +16,6 @@ function supportsWebGL2(): boolean {
 
 export function Home() {
   const [ready, setReady] = useState(false)
-  const [heroActive, setHeroActive] = useState(true)
-  const heroRef = useRef<HTMLElement>(null)
   const webgl = useMemo(supportsWebGL2, [])
   const desktop = useMemo(
     () => window.innerWidth >= 900 && matchMedia('(pointer: fine)').matches,
@@ -25,33 +23,16 @@ export function Home() {
   )
   const count = desktop ? 28000 : 9000
 
-  // pause the WebGL loop once the hero has scrolled away
-  useEffect(() => {
-    const el = heroRef.current
-    if (!el || !webgl) return
-    const io = new IntersectionObserver(
-      ([entry]) => setHeroActive(entry.isIntersecting),
-      { threshold: 0.02 },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [webgl])
-
   const productsReveal = useReveal<HTMLDivElement>()
   const aboutReveal = useReveal<HTMLDivElement>()
   const contactReveal = useReveal<HTMLDivElement>()
 
   return (
     <main>
-      <section className="hero" ref={heroRef} aria-label="Akshay Polymers">
+      <section className="hero" aria-label="Akshay Polymers">
         {webgl && (
           <div className="hero-canvas" aria-hidden="true">
-            <Experience
-              count={count}
-              dof={desktop}
-              active={heroActive}
-              onReady={() => setReady(true)}
-            />
+            <Experience count={count} dof={desktop} onReady={() => setReady(true)} />
           </div>
         )}
         <div className={`hero-copy ${ready || !webgl ? 'hero-copy-in' : ''}`}>

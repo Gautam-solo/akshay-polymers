@@ -1,15 +1,41 @@
 import * as THREE from 'three'
 import { useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Environment, Lightformer } from '@react-three/drei'
+import { AdaptiveDpr, Environment, Lightformer } from '@react-three/drei'
 import { gsap } from 'gsap'
 import { GranuleField } from './GranuleField'
 import { Effects } from './Effects'
+import { PerfGuard } from './PerfGuard'
+import { MAX_DELTA } from '../lib/frame'
 import { BG } from '../lib/palette'
 
 const REDUCED =
   typeof matchMedia !== 'undefined' &&
   matchMedia('(prefers-reduced-motion: reduce)').matches
+
+/**
+ * Runs the render loop only while the canvas is on screen. Driven from inside
+ * the canvas so scrolling past the hero never re-renders the React tree.
+ */
+function VisibilityGate() {
+  const gl = useThree((s) => s.gl)
+  const setFrameloop = useThree((s) => s.setFrameloop)
+
+  useEffect(() => {
+    const el = gl.domElement
+    const io = new IntersectionObserver(
+      ([entry]) => setFrameloop(entry.isIntersecting ? 'always' : 'never'),
+      { threshold: 0.01 },
+    )
+    io.observe(el)
+    return () => {
+      io.disconnect()
+      setFrameloop('always')
+    }
+  }, [gl, setFrameloop])
+
+  return null
+}
 
 // Slow opening dolly (matches the ~3.5s granule arrival), then a gentle
 // idle sway with pointer parallax. No scroll choreography: calm by design.
@@ -17,6 +43,8 @@ function CameraRig() {
   const { camera } = useThree()
   const dolly = useRef({ z: REDUCED ? 56 : 72 })
   const parallax = useRef(new THREE.Vector2())
+  // own clock, advanced by clamped delta, so pausing never jumps the sway
+  const time = useRef(0)
 
   useEffect(() => {
     if (REDUCED) return
@@ -26,13 +54,15 @@ function CameraRig() {
     }
   }, [])
 
-  useFrame((state, delta) => {
+  useFrame((state, rawDelta) => {
+    const delta = Math.min(rawDelta, MAX_DELTA)
     let x = 0
     let y = 1.5
     if (!REDUCED) {
-      const time = state.clock.elapsedTime
-      x += Math.sin(time * 0.2) * 0.5
-      y += Math.sin(time * 0.16 + 2) * 0.35
+      time.current += delta
+      const t = time.current
+      x += Math.sin(t * 0.2) * 0.5
+      y += Math.sin(t * 0.16 + 2) * 0.35
       const d = 1 - Math.exp(-delta * 3)
       parallax.current.x += (state.pointer.x - parallax.current.x) * d
       parallax.current.y += (state.pointer.y - parallax.current.y) * d
@@ -49,17 +79,17 @@ function CameraRig() {
 interface Props {
   count: number
   dof: boolean
-  active: boolean
   onReady: () => void
 }
 
-export function Experience({ count, dof, active, onReady }: Props) {
+export function Experience({ count, dof, onReady }: Props) {
   return (
     <Canvas
-      dpr={[1, 1.75]}
-      frameloop={active ? 'always' : 'never'}
+      dpr={[1, 1.5]}
+      // drop resolution automatically if frames start dropping, restore when calm
+      performance={{ min: 0.6, debounce: 220 }}
       camera={{ fov: 42, near: 0.1, far: 400, position: [0, 1.5, 72] }}
-      gl={{ antialias: false, powerPreference: 'high-performance' }}
+      gl={{ antialias: false, powerPreference: 'high-performance', stencil: false }}
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping
         gl.toneMappingExposure = 1.0
@@ -92,6 +122,9 @@ export function Experience({ count, dof, active, onReady }: Props) {
       <GranuleField count={count} onReady={onReady} />
       <CameraRig />
       <Effects dof={dof} />
+      <VisibilityGate />
+      <PerfGuard />
+      <AdaptiveDpr />
     </Canvas>
   )
 }
