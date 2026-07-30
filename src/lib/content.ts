@@ -56,28 +56,28 @@ export const PRODUCTS: Product[] = [
     name: 'Polycarbonate Granules',
     short:
       'Made on the latest technology for superior quality, strength and excellent heat resistance.',
-    images: ['/pc-1.jpg', '/pc-2.jpg', '/pc-3.jpg'],
-    alt: 'Grey polycarbonate granules spilling from glass test tubes',
+    images: ['/p-pc-1.jpg', '/p-pc-2.jpg'],
+    alt: 'White polycarbonate granules spilling from a clear container',
     lede:
       'Manufactured on modern technology, our polycarbonate granules combine superior strength with excellent heat resistance. They join cleanly by mechanical, solvent and welding methods, making them a dependable base for electrical accessories and engineering products.',
     variants: [
       {
         name: 'PC Super Natural',
         body: 'High-strength transparent granules with outstanding stiffness, impact resistant even at low temperatures. Chosen for sheet production, electrical locks, bullet-resistant glazing and headlights.',
-        images: ['/v-pc-natural.jpg', '/pc-1.jpg'],
-        alt: 'Transparent polycarbonate granules in a heap',
+        images: ['/g-pc-natural-1.jpg', '/g-pc-natural-2.jpg'],
+        alt: 'Clear transparent polycarbonate granules in a heap',
       },
       {
         name: 'PC Super Black',
         body: 'Premium finishing with a deep shine, built for lighting systems and injection molding. Holds up against moisture damage over its lifetime.',
-        images: ['/v-pc-black.jpg', '/pc-3.jpg'],
-        alt: 'Glossy black polycarbonate granules',
+        images: ['/g-pc-black-1.jpg', '/g-pc-black-2.jpg'],
+        alt: 'Glossy black polycarbonate granules with glass beakers',
       },
       {
         name: 'PC LED',
         body: 'A specialised formulation engineered for LED light manufacturing, tuned to carry light evenly through the moulded body.',
-        images: ['/v-pc-led.jpg', '/pc-2.jpg'],
-        alt: 'Milky white diffuser-grade polycarbonate granules',
+        images: ['/g-pc-led-1.jpg', '/g-pc-led-2.jpg'],
+        alt: 'Milky white diffuser-grade polycarbonate granules pouring out',
       },
     ],
     applications: [
@@ -94,33 +94,33 @@ export const PRODUCTS: Product[] = [
     name: 'ABS Granules',
     short:
       'Outstanding mechanical and high-impact strength that moulds cleanly into rigid shapes.',
-    images: ['/abs-1.jpg', '/abs-2.jpg', '/abs-3.jpg'],
-    alt: 'ABS granules in many colors with matching color swatch tags',
+    images: ['/p-abs-1.jpg', '/p-abs-2.jpg', '/p-abs-3.jpg'],
+    alt: 'White ABS granules being dosed under a moulding machine nozzle',
     lede:
       'Acrylonitrile Butadiene Styrene is one of the most widely used engineering granules. Ours is manufactured in multiple grades and colours with quality controlled across every parameter, giving tough products outstanding mechanical and impact strength.',
     variants: [
       {
         name: 'ABS Milky White',
         body: 'A clean base for moulded components and high-temperature applications, popular across electrical fittings and toy manufacturing.',
-        images: ['/v-abs-milky.jpg', '/abs-3.jpg'],
+        images: ['/g-abs-milky-1.jpg', '/g-abs-milky-2.jpg'],
         alt: 'Milky white ABS granules spilling from test tubes',
       },
       {
         name: 'ABS Black',
         body: 'The workhorse grade behind computer keyboard parts, toy building bricks, wall-socket face guards and protective housings for power tools.',
-        images: ['/v-black-jar.jpg', '/v-pc-black.jpg'],
-        alt: 'Black ABS granules pouring from a glass jar',
+        images: ['/g-abs-black-1.jpg', '/g-abs-black-2.jpg'],
+        alt: 'Black ABS granules with glass beakers',
       },
       {
         name: 'ABS Super Black',
         body: 'The premium grade: great shine with full strength and outstanding impact resistance, suited to large plastic components.',
-        images: ['/v-abs-superblack.jpg', '/pc-3.jpg'],
-        alt: 'High-shine super black ABS granules with a test tube',
+        images: ['/g-abs-superblack-1.jpg', '/g-abs-superblack-2.jpg'],
+        alt: 'High-shine super black ABS granules',
       },
       {
         name: 'ABS Red',
         body: 'A ready coloured variant for products that need consistent red right out of the bag.',
-        images: ['/v-abs-red.jpg', '/v-pbt-red.jpg'],
+        images: ['/g-abs-red-1.jpg', '/g-abs-red-2.jpg'],
         alt: 'Bright red ABS granules spilling from a test tube',
       },
     ],
@@ -138,7 +138,7 @@ export const PRODUCTS: Product[] = [
     name: 'PBT Granules',
     short:
       'Good electrical resistance with fast crystallisation. FR, non-FR and glass-filled ranges in a wide choice of colours.',
-    images: ['/pbt-1.jpg', '/pbt-2.jpg', '/pbt-3.jpg'],
+    images: ['/p-pbt-1.jpg', '/p-pbt-2.jpg'],
     alt: 'Beakers filled with PBT granules in white, green, black, blue and yellow',
     lede:
       'Polybutylene Terephthalate offers very good electrical resistance thanks to its fast crystallisation. Processed by skilled professionals, it is offered in multiple ranges and colours to match customer requirements, at pricing that stays competitive with the market.',
@@ -146,20 +146,20 @@ export const PRODUCTS: Product[] = [
       {
         name: 'FR range',
         body: 'Fire-retardant PBT, including a 30% glass-filled option, for components that must meet flammability requirements.',
-        images: ['/v-pbt-orange.jpg', '/pbt-1.jpg'],
-        alt: 'Orange fire-retardant PBT granules with a glass bottle',
+        images: ['/g-pbt-fr-1.jpg', '/g-pbt-fr-2.jpg'],
+        alt: 'Fire-retardant PBT granules in a range of colours',
       },
       {
         name: 'Non-FR range',
         body: 'Standard PBT for general electrical and mechanical parts where fire rating is not required.',
-        images: ['/v-pbt-white.jpg', '/pbt-3.jpg'],
-        alt: 'White PBT granules pouring from a measuring cup',
+        images: ['/g-pbt-nonfr-1.jpg', '/g-pbt-nonfr-2.jpg'],
+        alt: 'White PBT granules pouring from a container',
       },
       {
         name: 'Glass-filled range',
         body: 'Reinforced with glass fibre for higher stiffness and dimensional stability in demanding components.',
-        images: ['/v-pbt-red.jpg', '/v-black-jar.jpg'],
-        alt: 'Red glass-filled PBT granules around a jar',
+        images: ['/g-pbt-gf-1.jpg', '/g-pbt-gf-2.jpg'],
+        alt: 'Glass-filled PBT granules pouring from a jar',
       },
     ],
     applications: [
