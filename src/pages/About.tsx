@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
+import { Picture } from '../components/Picture'
 import { PHONE_MAIN, STATS } from '../lib/content'
+import { useMeta } from '../dom/useMeta'
 import { useReveal } from '../dom/useReveal'
 
 const VALUES = [
@@ -18,6 +20,14 @@ const VALUES = [
 ]
 
 export function About() {
+  useMeta({
+    title: 'About | Akshay Polymers, Ahmedabad',
+    description:
+      'Akshay Polymers has manufactured specialised plastic granules in Odhav, Ahmedabad since 2014, with a focus on consistent quality, ready inventory and delivery across India.',
+    path: '/about',
+    image: '/facility.jpg',
+  })
+
   const valuesReveal = useReveal<HTMLDivElement>()
   const storyReveal = useReveal<HTMLDivElement>()
 
@@ -41,7 +51,7 @@ export function About() {
             </a>
           </div>
           <div className="page-hero-media">
-            <img
+            <Picture
               src="/facility.jpg"
               alt="Warehouse with stacked granule bags and processing equipment"
               width={900}
@@ -66,14 +76,15 @@ export function About() {
         <div className="section-head reveal" ref={valuesReveal}>
           <h2>What we stand for</h2>
         </div>
-        <div className="variant-grid">
-          {VALUES.map((v) => (
-            <article className="variant-card" key={v.name}>
+        <ol className="value-list">
+          {VALUES.map((v, i) => (
+            <li className="value-row" key={v.name}>
+              <span className="value-num">{String(i + 1).padStart(2, '0')}</span>
               <h3>{v.name}</h3>
               <p>{v.body}</p>
-            </article>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
       <section className="section section-contact">
@@ -92,7 +103,7 @@ export function About() {
             </Link>
           </div>
           <div className="about-media about-media-badge">
-            <img src="/logo.jpg" alt="Akshay Polymers quality badge" width={320} height={320} />
+            <Picture src="/logo.jpg" alt="Akshay Polymers quality badge" width={320} height={320} />
           </div>
         </div>
       </section>

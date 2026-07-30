@@ -1,11 +1,24 @@
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 import { ImageCycler } from '../components/ImageCycler'
+import { Picture } from '../components/Picture'
 import { PHONE_MAIN, PRODUCTS, getProduct } from '../lib/content'
+import { useMeta } from '../dom/useMeta'
 import { useReveal } from '../dom/useReveal'
 
 export function ProductPage() {
-  const { slug } = useParams()
-  const product = slug ? getProduct(slug) : undefined
+  const location = useLocation()
+  const slug = location.pathname.replace(/^\//, '')
+  const product = getProduct(slug)
+
+  useMeta({
+    title: product
+      ? `${product.name} | Akshay Polymers, Ahmedabad`
+      : 'Akshay Polymers',
+    description: product ? product.short : '',
+    path: `/${slug}`,
+    image: product?.images[0],
+  })
+
   const variantsReveal = useReveal<HTMLDivElement>()
   const detailReveal = useReveal<HTMLDivElement>()
 
@@ -100,7 +113,7 @@ export function ProductPage() {
           <div className="also-grid">
             {others.map((p) => (
               <Link key={p.slug} to={`/${p.slug}`} className="also-card">
-                <img src={p.images[0]} alt="" loading="lazy" width={320} height={240} />
+                <Picture src={p.images[0]} alt="" loading="lazy" width={320} height={240} />
                 <span>{p.name}</span>
               </Link>
             ))}

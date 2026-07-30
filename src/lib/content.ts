@@ -1,6 +1,7 @@
 // All site content in one place, sourced from akshaypolymers.in.
 
 export const PHONE_MAIN = '+919725829280'
+export const PHONE_LABEL = '+91 97258 29280'
 
 export const PHONES = [
   { label: '+91 97258 29280', tel: '+919725829280' },
@@ -35,7 +36,7 @@ export const HOURS = [
 export const STATS = [
   { value: '200+', label: 'Happy customers' },
   { value: '12+', label: 'Years experience' },
-  { value: 'All India', label: 'Delivery' },
+  { value: 'All India', label: 'Delivery coverage' },
 ]
 
 export interface ProductVariant {

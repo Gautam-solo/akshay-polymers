@@ -1,10 +1,17 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Experience } from '../scene/Experience'
 import { ImageCycler } from '../components/ImageCycler'
+import { Picture } from '../components/Picture'
 import { scrollToAnchor } from '../dom/SmoothScroll'
+import { useMeta } from '../dom/useMeta'
 import { useReveal } from '../dom/useReveal'
 import { PHONE_MAIN, PRODUCTS, STATS } from '../lib/content'
+
+// Three.js and the post-processing stack are ~1MB of the bundle. Loading them
+// on demand keeps them off About, Contact and the product pages entirely.
+const Experience = lazy(() =>
+  import('../scene/Experience').then((m) => ({ default: m.Experience })),
+)
 
 function supportsWebGL2(): boolean {
   try {
@@ -15,6 +22,13 @@ function supportsWebGL2(): boolean {
 }
 
 export function Home() {
+  useMeta({
+    title: 'Akshay Polymers | Polycarbonate, ABS and PBT Granules, Ahmedabad',
+    description:
+      'Manufacturers of engineering plastic granules in Ahmedabad since 2014. Polycarbonate, ABS and PBT compounds in a wide range of grades and colours, delivered across India.',
+    path: '/',
+  })
+
   const [ready, setReady] = useState(false)
   const webgl = useMemo(supportsWebGL2, [])
   const desktop = useMemo(
@@ -39,7 +53,9 @@ export function Home() {
       <section className="hero" aria-label="Akshay Polymers">
         {webgl && (
           <div className="hero-canvas" aria-hidden="true">
-            <Experience count={count} dof={desktop} onReady={() => setReady(true)} />
+            <Suspense fallback={null}>
+              <Experience count={count} dof={desktop} onReady={() => setReady(true)} />
+            </Suspense>
           </div>
         )}
         <div className={`hero-copy ${ready || !webgl ? 'hero-copy-in' : ''}`}>
@@ -89,7 +105,13 @@ export function Home() {
             <article className="product-card" key={p.slug}>
               <Link to={`/${p.slug}`} className="product-link">
                 <div className="product-media">
-                  <ImageCycler images={p.images} alt={p.alt} width={640} height={480} />
+                  <ImageCycler
+                    images={p.images}
+                    alt={p.alt}
+                    width={640}
+                    height={480}
+                    interactive={false}
+                  />
                 </div>
                 <div className="product-body">
                   <h3>{p.name}</h3>
@@ -105,7 +127,7 @@ export function Home() {
       <section id="about" className="section">
         <div className="about-grid reveal" ref={aboutReveal}>
           <div className="about-media">
-            <img
+            <Picture
               src="/facility.jpg"
               alt="Warehouse with stacked granule bags and processing equipment"
               loading="lazy"

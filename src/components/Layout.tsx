@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { SmoothScroll, scrollToAnchor, scrollToTop } from '../dom/SmoothScroll'
-import { PHONE_MAIN, PRODUCTS } from '../lib/content'
+import { PHONE_LABEL, PHONE_MAIN, PRODUCTS } from '../lib/content'
 
 function Brand({ badgeSize = 40 }: { badgeSize?: number }) {
   return (
@@ -72,8 +72,9 @@ export function Layout() {
         </button>
       </header>
 
-      <div
+      <nav
         id="mobile-menu"
+        aria-label="Mobile"
         className={`mobile-menu ${menuOpen ? 'mobile-menu-open' : ''}`}
         hidden={!menuOpen}
       >
@@ -88,7 +89,16 @@ export function Layout() {
         <a className="btn btn-accent" href={`tel:${PHONE_MAIN}`}>
           Get a quote
         </a>
-      </div>
+      </nav>
+
+      {menuOpen && (
+        <button
+          type="button"
+          className="menu-scrim"
+          aria-label="Close menu"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
 
       <Outlet />
 
@@ -114,10 +124,7 @@ export function Layout() {
         </div>
         <div className="footer-base">
           <span>© 2026 Akshay Polymers, Ahmedabad</span>
-          <span className="footer-credit">
-            Some photography by Jacorna, Teemeah and SuSanA Secretariat via
-            Wikimedia Commons (CC BY / CC BY-SA)
-          </span>
+          <a href={`tel:${PHONE_MAIN}`}>{PHONE_LABEL}</a>
         </div>
       </footer>
     </>
