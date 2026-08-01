@@ -184,12 +184,6 @@ export function Contact() {
                 </div>
               )}
             </div>
-
-            {!sent && (
-              <p className="form-note">
-                Opens your email app with the message ready to send.
-              </p>
-            )}
           </form>
 
           <div className="contact-details">

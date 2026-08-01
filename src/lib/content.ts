@@ -14,16 +14,24 @@ export const EMAILS = ['jainjainjain701@gmail.com', 'akshaypolymer014@gmail.com'
 export const ADDRESS =
   'No-81, Tirupati Aakruti Industrial Estate, Opp. Abhishree Estate, Odhav Ring Road, Odhav, Ahmedabad - 382415, Gujarat, India'
 
+/** True on iPhone, iPad and iPod, including iPadOS which reports as a Mac. */
+function isIOS(): boolean {
+  if (typeof navigator === 'undefined') return false
+  const ua = navigator.userAgent
+  if (/iPhone|iPod|iPad/.test(ua)) return true
+  // iPadOS 13+ in Safari sends a desktop Mac user agent; the touch points
+  // give it away, since no real Mac reports more than one.
+  return /Macintosh/.test(ua) && navigator.maxTouchPoints > 1
+}
+
 /**
- * Deep link to the works. Apple devices get Apple Maps (which is what opens
- * natively there); everything else gets Google Maps, which opens the app when
- * it is installed and the website otherwise.
+ * Deep link to the works. iOS opens Apple Maps, which is the built-in app
+ * there. Every other device (including Mac, Windows and Android) goes to
+ * Google Maps, which opens the app when installed and the website otherwise.
  */
 export function mapsUrl(): string {
   const query = encodeURIComponent(`Akshay Polymers, ${ADDRESS}`)
-  const ua = typeof navigator === 'undefined' ? '' : navigator.userAgent
-  const isApple = /iPad|iPhone|iPod|Macintosh/.test(ua)
-  return isApple
+  return isIOS()
     ? `https://maps.apple.com/?q=${query}`
     : `https://www.google.com/maps/search/?api=1&query=${query}`
 }
