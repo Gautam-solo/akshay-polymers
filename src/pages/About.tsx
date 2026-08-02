@@ -19,13 +19,7 @@ const VALUES = [
 ]
 
 export function About() {
-  useMeta({
-    title: 'About | Akshay Polymers, Ahmedabad',
-    description:
-      'Akshay Polymers has manufactured specialised plastic granules in Odhav, Ahmedabad since 2014, with a focus on consistent quality, ready inventory and delivery across India.',
-    path: '/about',
-    image: '/facility.jpg',
-  })
+  useMeta('/about')
 
   return (
     <main>
@@ -99,7 +93,7 @@ export function About() {
             </Link>
           </div>
           <div className="about-media about-media-badge">
-            <Picture src="/logo.jpg" alt="Akshay Polymers quality badge" width={320} height={320} />
+            <Picture src="/logo-mark.png" alt="Akshay Polymers quality badge" width={320} height={320} />
           </div>
         </div>
       </section>

@@ -11,7 +11,7 @@ interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export function Picture({ src, alt, ...rest }: Props) {
-  const webp = src.replace(/\.jpe?g$/i, '.webp')
+  const webp = src.replace(/\.(jpe?g|png)$/i, '.webp')
   return (
     <picture>
       {webp !== src && <source srcSet={webp} type="image/webp" />}

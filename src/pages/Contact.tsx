@@ -3,12 +3,7 @@ import { ADDRESS, EMAILS, HOURS, PHONES, mapsUrl } from '../lib/content'
 import { useMeta } from '../dom/useMeta'
 
 export function Contact() {
-  useMeta({
-    title: 'Contact | Akshay Polymers, Ahmedabad',
-    description:
-      'Call, email or visit Akshay Polymers at Tirupati Aakruti Industrial Estate, Odhav, Ahmedabad. Open Monday to Saturday, 9:00 am to 7:00 pm.',
-    path: '/contact',
-  })
+  useMeta('/contact')
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')

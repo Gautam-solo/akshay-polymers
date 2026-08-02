@@ -21,12 +21,7 @@ function supportsWebGL2(): boolean {
 }
 
 export function Home() {
-  useMeta({
-    title: 'Akshay Polymers | Polycarbonate, ABS and PBT Granules, Ahmedabad',
-    description:
-      'Manufacturers of engineering plastic granules in Ahmedabad since 2014. Polycarbonate, ABS and PBT compounds in a wide range of grades and colours, delivered across India.',
-    path: '/',
-  })
+  useMeta('/')
 
   const [ready, setReady] = useState(false)
   const webgl = useMemo(supportsWebGL2, [])

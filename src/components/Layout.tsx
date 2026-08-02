@@ -3,11 +3,11 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { SmoothScroll, scrollToAnchor, scrollToTop } from '../dom/SmoothScroll'
 import { PHONE_LABEL, PHONE_MAIN, PRODUCTS } from '../lib/content'
 
-function Brand({ badgeSize = 40 }: { badgeSize?: number }) {
+function Brand({ badgeSize = 56 }: { badgeSize?: number }) {
   return (
     <Link className="brand" to="/">
       <img
-        src="/logo.jpg"
+        src="/logo-mark.png"
         alt="Akshay Polymers logo"
         className="brand-badge"
         style={{ width: badgeSize, height: badgeSize }}
@@ -105,7 +105,7 @@ export function Layout() {
       <footer className="footer">
         <div className="footer-inner">
           <div className="footer-col footer-col-brand">
-            <Brand badgeSize={34} />
+            <Brand badgeSize={46} />
             <p>Engineering plastic granules, made in Ahmedabad since 2014.</p>
           </div>
           <nav className="footer-col" aria-label="Products">

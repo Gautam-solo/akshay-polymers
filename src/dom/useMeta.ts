@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
+import seo from '../lib/seo.json'
 
-const SITE = 'https://www.akshaypolymers.in'
+const SITE = seo.site
+type RouteKey = keyof typeof seo.routes
 
 function tag(selector: string, create: () => HTMLElement): HTMLElement {
   let el = document.head.querySelector<HTMLElement>(selector)
@@ -20,36 +22,38 @@ function setMeta(attr: 'name' | 'property', key: string, value: string) {
   el.setAttribute('content', value)
 }
 
-interface Meta {
-  title: string
-  description: string
-  /** path beginning with a slash, e.g. "/abs-granules" */
-  path: string
-  image?: string
-}
-
 /**
- * Keeps the document title, description, canonical URL and share tags in step
- * with the current route. Without this every page shares the homepage's
- * metadata in tabs, bookmarks, search results and link previews.
+ * Applies the route's SEO metadata to the document.
+ *
+ * The same seo.json drives scripts/prerender.mjs, which bakes these tags into
+ * a static HTML file per route at build time. That matters because crawlers
+ * that never run JavaScript (WhatsApp, Facebook and LinkedIn link previews)
+ * would otherwise only ever see the homepage's tags.
  */
-export function useMeta({ title, description, path, image = '/logo.jpg' }: Meta) {
+export function useMeta(path: RouteKey) {
   useEffect(() => {
-    document.title = title
-    setMeta('name', 'description', description)
+    const meta = seo.routes[path]
+    if (!meta) return
+
+    document.title = meta.title
+    setMeta('name', 'description', meta.description)
 
     const canonical = tag('link[rel="canonical"]', () => {
       const l = document.createElement('link')
       l.rel = 'canonical'
       return l
     }) as HTMLLinkElement
-    canonical.href = `${SITE}${path}`
+    canonical.href = `${SITE}${path === '/' ? '/' : path}`
 
-    setMeta('property', 'og:title', title)
-    setMeta('property', 'og:description', description)
-    setMeta('property', 'og:url', `${SITE}${path}`)
-    setMeta('property', 'og:image', `${SITE}${image}`)
+    setMeta('property', 'og:title', meta.title)
+    setMeta('property', 'og:description', meta.description)
+    setMeta('property', 'og:url', canonical.href)
+    setMeta('property', 'og:image', `${SITE}${meta.image}`)
     setMeta('property', 'og:type', 'website')
+    setMeta('property', 'og:site_name', 'Akshay Polymers')
     setMeta('name', 'twitter:card', 'summary_large_image')
-  }, [title, description, path, image])
+    setMeta('name', 'twitter:title', meta.title)
+    setMeta('name', 'twitter:description', meta.description)
+    setMeta('name', 'twitter:image', `${SITE}${meta.image}`)
+  }, [path])
 }

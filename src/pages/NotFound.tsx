@@ -4,11 +4,7 @@ import { PRODUCTS } from '../lib/content'
 import { useMeta } from '../dom/useMeta'
 
 export function NotFound() {
-  useMeta({
-    title: 'Page not found | Akshay Polymers',
-    description: 'The page you were looking for does not exist.',
-    path: '/404',
-  })
+  useMeta('/404')
 
   return (
     <main>

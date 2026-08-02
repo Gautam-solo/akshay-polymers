@@ -9,14 +9,7 @@ export function ProductPage() {
   const slug = location.pathname.replace(/^\//, '')
   const product = getProduct(slug)
 
-  useMeta({
-    title: product
-      ? `${product.name} | Akshay Polymers, Ahmedabad`
-      : 'Akshay Polymers',
-    description: product ? product.short : '',
-    path: `/${slug}`,
-    image: product?.images[0],
-  })
+  useMeta(`/${slug}` as Parameters<typeof useMeta>[0])
 
   if (!product) return <Navigate to="/" replace />
 
