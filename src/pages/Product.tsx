@@ -3,7 +3,6 @@ import { ImageCycler } from '../components/ImageCycler'
 import { Picture } from '../components/Picture'
 import { PHONE_MAIN, PRODUCTS, getProduct } from '../lib/content'
 import { useMeta } from '../dom/useMeta'
-import { useReveal } from '../dom/useReveal'
 
 export function ProductPage() {
   const location = useLocation()
@@ -18,9 +17,6 @@ export function ProductPage() {
     path: `/${slug}`,
     image: product?.images[0],
   })
-
-  const variantsReveal = useReveal<HTMLDivElement>()
-  const detailReveal = useReveal<HTMLDivElement>()
 
   if (!product) return <Navigate to="/" replace />
 
@@ -49,7 +45,7 @@ export function ProductPage() {
       </section>
 
       <section className="section">
-        <div className="section-head reveal" ref={variantsReveal}>
+        <div className="section-head">
           <h2>Grades we make</h2>
         </div>
         <div className="variant-grid">
@@ -68,7 +64,7 @@ export function ProductPage() {
       </section>
 
       <section className="section">
-        <div className="detail-grid reveal" ref={detailReveal}>
+        <div className="detail-grid">
           <div className="detail-block">
             <h2>Where it goes</h2>
             <ul className="about-points">

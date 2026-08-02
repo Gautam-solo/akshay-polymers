@@ -37,8 +37,8 @@ export function mapsUrl(): string {
 }
 
 export const HOURS = [
-  { days: 'Monday to Saturday', time: '9:00 am to 7:00 pm' },
-  { days: 'Sunday', time: 'Closed' },
+  { days: 'Monday to Saturday', time: '9:00 am to 7:00 pm', closed: false },
+  { days: 'Sunday', time: 'Closed', closed: true },
 ]
 
 export const STATS = [

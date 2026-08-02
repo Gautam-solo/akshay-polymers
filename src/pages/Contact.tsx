@@ -209,24 +209,27 @@ export function Contact() {
             </div>
             <div className="contact-block">
               <h3>Hours</h3>
-              <ul>
+              <dl className="hours">
                 {HOURS.map((h) => (
-                  <li key={h.days}>
-                    {h.days}: {h.time}
-                  </li>
+                  <div className="hours-row" key={h.days}>
+                    <dt>{h.days}</dt>
+                    <dd className={h.closed ? 'hours-closed' : undefined}>
+                      {h.time}
+                    </dd>
+                  </div>
                 ))}
-              </ul>
+              </dl>
             </div>
             <div className="contact-block">
               <h3>Works</h3>
+              <address className="contact-address">{ADDRESS}</address>
               <a
-                className="contact-address"
+                className="maps-link"
                 href={mapsUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {ADDRESS}
-                <span className="contact-address-cue">Open in Maps</span>
+                Open in Maps
               </a>
             </div>
           </div>

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { Picture } from '../components/Picture'
 import { PHONE_MAIN, STATS } from '../lib/content'
 import { useMeta } from '../dom/useMeta'
-import { useReveal } from '../dom/useReveal'
 
 const VALUES = [
   {
@@ -27,9 +26,6 @@ export function About() {
     path: '/about',
     image: '/facility.jpg',
   })
-
-  const valuesReveal = useReveal<HTMLDivElement>()
-  const storyReveal = useReveal<HTMLDivElement>()
 
   return (
     <main>
@@ -73,7 +69,7 @@ export function About() {
       </section>
 
       <section className="section">
-        <div className="section-head reveal" ref={valuesReveal}>
+        <div className="section-head">
           <h2>What we stand for</h2>
         </div>
         <ol className="value-list">
@@ -88,7 +84,7 @@ export function About() {
       </section>
 
       <section className="section section-contact">
-        <div className="about-grid reveal" ref={storyReveal}>
+        <div className="about-grid">
           <div className="about-body">
             <h2>The symbol of quality.</h2>
             <p>

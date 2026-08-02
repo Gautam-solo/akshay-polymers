@@ -4,7 +4,6 @@ import { ImageCycler } from '../components/ImageCycler'
 import { Picture } from '../components/Picture'
 import { scrollToAnchor } from '../dom/SmoothScroll'
 import { useMeta } from '../dom/useMeta'
-import { useReveal } from '../dom/useReveal'
 import { PHONE_MAIN, PRODUCTS, STATS } from '../lib/content'
 
 // Three.js and the post-processing stack are ~1MB of the bundle. Loading them
@@ -43,10 +42,6 @@ export function Home() {
     const t = window.setTimeout(() => setReady(true), 1500)
     return () => window.clearTimeout(t)
   }, [])
-
-  const productsReveal = useReveal<HTMLDivElement>()
-  const aboutReveal = useReveal<HTMLDivElement>()
-  const contactReveal = useReveal<HTMLDivElement>()
 
   return (
     <main>
@@ -93,7 +88,7 @@ export function Home() {
       </section>
 
       <section id="products" className="section">
-        <div className="section-head reveal" ref={productsReveal}>
+        <div className="section-head">
           <h2>Our granules</h2>
           <p>
             Specialised plastic granules backed by an expansive selection and a
@@ -125,7 +120,7 @@ export function Home() {
       </section>
 
       <section id="about" className="section">
-        <div className="about-grid reveal" ref={aboutReveal}>
+        <div className="about-grid">
           <div className="about-media">
             <Picture
               src="/facility.jpg"
@@ -156,7 +151,7 @@ export function Home() {
       </section>
 
       <section className="section section-contact">
-        <div className="contact-cta reveal" ref={contactReveal}>
+        <div className="contact-cta">
           <h2>Talk to us.</h2>
           <p>
             Tell us what you are moulding and we will match the right granule,
