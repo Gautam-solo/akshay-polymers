@@ -1,0 +1,40 @@
+{
+  "site": "https://www.akshaypolymers.in",
+  "routes": {
+    "/": {
+      "title": "Plastic Granules Manufacturer in Ahmedabad | Akshay Polymers",
+      "description": "Akshay Polymers manufactures polycarbonate, ABS and PBT plastic granules in Odhav, Ahmedabad since 2014. Wide range of grades and colours, ready stock, delivery across India. Call +91 00000 00000.",
+      "image": "/og.jpg"
+    },
+    "/polycarbonate-granules": {
+      "title": "Polycarbonate (PC) Granules Manufacturer, Ahmedabad | Akshay Polymers",
+      "description": "PC Super Natural, PC Super Black and PC LED grades made in Ahmedabad. High strength, excellent heat resistance, for electrical accessories, sheets, headlights and LED lighting. Get a quote.",
+      "image": "/p-pc-1.jpg"
+    },
+    "/abs-granules": {
+      "title": "ABS Granules Manufacturer and Supplier, Ahmedabad | Akshay Polymers",
+      "description": "ABS granules in Milky White, Black, Super Black and Red. High impact and mechanical strength for toys, electrical fittings, computer parts and protective housings. Supplied across India.",
+      "image": "/p-abs-1.jpg"
+    },
+    "/pbt-granules": {
+      "title": "PBT Granules Manufacturer in Ahmedabad, Gujarat | Akshay Polymers",
+      "description": "PBT granules in FR, non-FR and glass-filled ranges, in orange, red, black and white. Very good electrical resistance for motor covers, plugs, switches and automotive parts.",
+      "image": "/p-pbt-1.jpg"
+    },
+    "/about": {
+      "title": "About Akshay Polymers | Granule Manufacturer in Odhav, Ahmedabad",
+      "description": "Founded in 2014 in Odhav, Ahmedabad, Akshay Polymers manufactures specialised plastic granules for industries across India. 200+ customers, 12+ years of experience.",
+      "image": "/facility.jpg"
+    },
+    "/contact": {
+      "title": "Contact Akshay Polymers, Odhav Ahmedabad | Request a Quote",
+      "description": "Call +91 00000 00000 or visit our works at Tirupati Aakruti Industrial Estate, Odhav Ring Road, Ahmedabad. Open Monday to Saturday, 9:00 am to 7:00 pm.",
+      "image": "/og.jpg"
+    },
+    "/404": {
+      "title": "Page not found | Akshay Polymers",
+      "description": "The page you were looking for does not exist.",
+      "image": "/og.jpg"
+    }
+  }
+}
