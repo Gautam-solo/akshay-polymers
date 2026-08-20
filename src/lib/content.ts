@@ -6,7 +6,7 @@ export const PHONE_LABEL = '+91 97258 29280'
 export const PHONES = [
   { label: '+91 97258 29280', tel: '+919725829280' },
   { label: '+91 97000 00701', tel: '+919700000701' },
-  { label: '+91 83280 93342', tel: '+918328093342' },
+  { label: '+91 91731 53156', tel: '+919173153156' },
 ]
 
 export const EMAILS = ['jainjainjain701@gmail.com', 'akshaypolymer014@gmail.com']
