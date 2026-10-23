@@ -125,6 +125,22 @@ export function Layout() {
         <div className="footer-base">
           <span>© 2026 Akshay Polymers, Ahmedabad</span>
           <a href={`tel:${PHONE_MAIN}`}>{PHONE_LABEL}</a>
+          <a
+            className="studio-credit"
+            href="https://thescalestudios.com"
+            target="_blank"
+            rel="noopener"
+            aria-label="Website designed by The Scale Studio (opens in a new tab)"
+          >
+            <span>Website by</span>
+            <img
+              src="/the-scale-studio-logo.png"
+              alt="The Scale Studio"
+              width={419}
+              height={104}
+              loading="lazy"
+            />
+          </a>
         </div>
       </footer>
     </>
